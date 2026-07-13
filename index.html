@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ibtehaj — Portfolio</title>
+<meta name="description" content="AI &amp; Computer Vision Engineer">
+<style>
+  :root {
+    --bg: #0c0e14; --panel: #151824; --text: #eef0f6; --muted: #98a0b3;
+    --border: #262b3a; --accent: #5b8cff; --accent2: #8f6bff;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--text);
+         font: 16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  a { color: var(--accent); text-decoration: none; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+  /* hero */
+  .hero { padding: 90px 0 60px;
+           background: radial-gradient(900px 420px at 20% -10%,
+                        rgba(91,140,255,.18), transparent 60%),
+                       radial-gradient(700px 380px at 85% 0%,
+                        rgba(143,107,255,.14), transparent 60%); }
+  .hero h1 { font-size: clamp(34px, 6vw, 54px); letter-spacing: -.02em; }
+  .hero .headline { font-size: clamp(18px, 3vw, 22px); margin-top: 8px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600; display: inline-block; }
+  .hero .bio { color: var(--muted); max-width: 640px; margin-top: 16px; }
+  .hero .loc { color: var(--muted); font-size: 14px; margin-top: 10px; }
+  .plinks { margin-top: 26px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .plink { border: 1px solid var(--border); background: var(--panel);
+            padding: 8px 18px; border-radius: 999px; color: var(--text);
+            font-size: 14px; transition: .15s; }
+  .plink:hover { border-color: var(--accent); color: var(--accent); }
+  /* projects */
+  h2 { font-size: 22px; margin: 46px 0 22px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+           gap: 22px; padding-bottom: 70px; }
+  .project { background: var(--panel); border: 1px solid var(--border);
+              border-radius: 16px; overflow: hidden; display: flex;
+              flex-direction: column; transition: .18s; }
+  .project:hover { transform: translateY(-4px); border-color: #3a4157; }
+  .thumb { aspect-ratio: 16/9; background: #10131c; overflow: hidden; }
+  .thumb img, .thumb video { width: 100%; height: 100%; object-fit: cover;
+                              display: block; }
+  .thumb.ph { display: flex; align-items: center; justify-content: center;
+               color: #2e3548; font-size: 42px; }
+  .pbody { padding: 18px 20px 20px; display: flex; flex-direction: column;
+            gap: 10px; flex: 1; }
+  .pbody h3 { font-size: 17px; }
+  .pbody p { color: var(--muted); font-size: 14px; flex: 1; }
+  .techrow { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skillrow .tech { font-size: 14px; padding: 6px 14px; }
+  .tech { font-size: 12px; color: #a8c0ff; background: rgba(91,140,255,.12);
+           border-radius: 999px; padding: 3px 10px; }
+  .btnrow { display: flex; gap: 8px; margin-top: 4px; }
+  .btn { font-size: 13px; font-weight: 600; background: var(--accent);
+          color: #fff; padding: 7px 16px; border-radius: 8px; }
+  .btn.ghost { background: transparent; border: 1px solid var(--border);
+                color: var(--text); font-weight: 400; }
+  footer { border-top: 1px solid var(--border); color: var(--muted);
+            text-align: center; padding: 28px 0; font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="hero"><div class="wrap">
+    <h1>Ibtehaj</h1>
+    <div class="headline">AI &amp; Computer Vision Engineer</div>
+    <p class="bio">I build AI systems that see, listen and act — object detection, tracking and segmentation, industrial anomaly detection, generative vision and voice interfaces. From research prototypes to deployed industrial solutions.</p>
+    
+    <div class="plinks"><a class="plink" href="mailto:expandalpha975@gmail.com" target="_blank" rel="noopener">Email</a></div>
+  </div></div>
+  <div class="wrap">
+    <h2>Skills</h2><div class="techrow skillrow"><span class="tech">Python</span><span class="tech">PyTorch</span><span class="tech">TensorFlow/Keras</span><span class="tech">OpenCV</span><span class="tech">YOLO</span><span class="tech">Segment Anything</span><span class="tech">PaDiM/PatchCore</span><span class="tech">LLMs &amp; RAG</span><span class="tech">FastAPI</span><span class="tech">Docker</span><span class="tech">Speech Recognition</span><span class="tech">3D Reconstruction</span><span class="tech">ChromaDB</span><span class="tech">Celery</span><span class="tech">Linux</span></div>
+    <h2>Projects</h2>
+    <div class="grid">
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_13_1783982496.png" alt="Expand AI — Booth Design Platform" loading="lazy"></div>
+        <div class="pbody">
+          <h3>Expand AI — Booth Design Platform</h3>
+          <p>AI platform for the exhibition industry: reads a client brief, RFP document or reference image and generates complete exhibition booth design concepts, plus automated presentation and financial-proposal generation. Built with LLMs, retrieval-augmented generation over documents, and an async generation pipeline.</p>
+          <div class="techrow"><span class="tech">llm</span><span class="tech">generative ai</span><span class="tech">rag</span><span class="tech">fastapi</span><span class="tech">celery</span><span class="tech">vector database</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_14_1783982496.png" alt="Dental AI — Teeth Segmentation &amp; Shade Analysis" loading="lazy"></div>
+        <div class="pbody">
+          <h3>Dental AI — Teeth Segmentation &amp; Shade Analysis</h3>
+          <p>Dental whitening MVP: an API that segments individual teeth in smile photos, measures tooth shade in Lab color space, and calibrates colors against a 24-patch ColorChecker card (delta-E before/after) so shade measurements are consistent across cameras and lighting.</p>
+          <div class="techrow"><span class="tech">medical imaging</span><span class="tech">image segmentation</span><span class="tech">color science</span><span class="tech">fastapi</span><span class="tech">opencv</span><span class="tech">research</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_15_1783982496.png" alt="Textile Defect Detection (PaDiM / PatchCore)" loading="lazy"></div>
+        <div class="pbody">
+          <h3>Textile Defect Detection (PaDiM / PatchCore)</h3>
+          <p>Research implementation of patch-distribution anomaly detection for fabric quality control: trained PaDiM and PatchCore models on a custom clothes dataset to separate good fabric from wrinkles, creases and weaving defects — trained only on defect-free samples.</p>
+          <div class="techrow"><span class="tech">anomaly detection</span><span class="tech">padim</span><span class="tech">patchcore</span><span class="tech">pytorch</span><span class="tech">research</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_16_1783982496.png" alt="2D Photo → 3D Model Pipeline" loading="lazy"></div>
+        <div class="pbody">
+          <h3>2D Photo → 3D Model Pipeline</h3>
+          <p>Converts a single 2D photo into a printable 3D model: background removal, human parsing (CIHP-PGN), depth estimation and mesh generation to STL — bridging computer vision and 3D printing.</p>
+          <div class="techrow"><span class="tech">3d reconstruction</span><span class="tech">depth estimation</span><span class="tech">human parsing</span><span class="tech">stl</span><span class="tech">python</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><video src="assets/proj_2_1783974324.mp4" muted loop playsinline autoplay controls preload="metadata"></video></div>
+        <div class="pbody">
+          <h3>Real-Time Object &amp; Person Tracking</h3>
+          <p>Multi-object tracking system that locks onto people and objects across video streams in real time, keeping stable IDs through occlusions and fast motion. Tested on pedestrians, animals and street scenes.</p>
+          <div class="techrow"><span class="tech">python</span><span class="tech">opencv</span><span class="tech">deep learning</span><span class="tech">object tracking</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_3_1783974324.png" alt="Object Detection &amp; Segmentation" loading="lazy"></div>
+        <div class="pbody">
+          <h3>Object Detection &amp; Segmentation</h3>
+          <p>Detection and pixel-perfect segmentation pipeline using modern models (YOLO-family detectors and Segment Anything). Draws boxes, masks and labels on images and live video.</p>
+          <div class="techrow"><span class="tech">yolo</span><span class="tech">segment anything</span><span class="tech">pytorch</span><span class="tech">opencv</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_4_1783974324.png" alt="Industrial Anomaly Detection" loading="lazy"></div>
+        <div class="pbody">
+          <h3>Industrial Anomaly Detection</h3>
+          <p>Vision-based quality control that learns what a normal product looks like and flags scratches, dents and defects on the production line — no labelled defect data needed.</p>
+          <div class="techrow"><span class="tech">anomaly detection</span><span class="tech">deep learning</span><span class="tech">industrial ai</span><span class="tech">python</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><video src="assets/proj_5_1783974324.mp4" muted loop playsinline autoplay controls preload="metadata"></video></div>
+        <div class="pbody">
+          <h3>Vehicle &amp; Road-Weather Classification</h3>
+          <p>Video classification models that recognise vehicle types in traffic footage and classify road weather conditions (rain, fog, snow) for driver-assistance use cases.</p>
+          <div class="techrow"><span class="tech">cnn</span><span class="tech">keras</span><span class="tech">video classification</span><span class="tech">opencv</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><video src="assets/proj_6_1783974324.mp4" muted loop playsinline autoplay controls preload="metadata"></video></div>
+        <div class="pbody">
+          <h3>Voice-Controlled Robot</h3>
+          <p>A robot that listens: spoken commands are transcribed and mapped to movement in real time, combining speech recognition with motor control.</p>
+          <div class="techrow"><span class="tech">speech recognition</span><span class="tech">robotics</span><span class="tech">python</span><span class="tech">voice ai</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_7_1783974324.png" alt="AI Background Remover" loading="lazy"></div>
+        <div class="pbody">
+          <h3>AI Background Remover</h3>
+          <p>One-click background removal with deep salient-object segmentation (U²-Net). Produces clean cut-outs of people and products for e-commerce and photo-booth pipelines.</p>
+          <div class="techrow"><span class="tech">u2net</span><span class="tech">image segmentation</span><span class="tech">python</span><span class="tech">opencv</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_8_1783974324.png" alt="Face Swap &amp; Human Part Replacement" loading="lazy"></div>
+        <div class="pbody">
+          <h3>Face Swap &amp; Human Part Replacement</h3>
+          <p>Generative vision experiments: swapping faces and replacing human parts (e.g. glasses/lenses) in photos while preserving lighting and expression.</p>
+          <div class="techrow"><span class="tech">generative ai</span><span class="tech">face swap</span><span class="tech">computer vision</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_9_1783974324.jpg" alt="Human Pose Detection" loading="lazy"></div>
+        <div class="pbody">
+          <h3>Human Pose Detection</h3>
+          <p>Skeleton-based pose estimation that tracks body keypoints in images and video — the building block for gesture control, fitness tracking and safety monitoring.</p>
+          <div class="techrow"><span class="tech">pose estimation</span><span class="tech">deep learning</span><span class="tech">opencv</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_10_1783974324.png" alt="Speech-to-Text &amp; Voice Gender Classification" loading="lazy"></div>
+        <div class="pbody">
+          <h3>Speech-to-Text &amp; Voice Gender Classification</h3>
+          <p>Audio AI pipeline: transcribes speech to text and classifies speaker gender from voice features.</p>
+          <div class="techrow"><span class="tech">speech recognition</span><span class="tech">audio ml</span><span class="tech">python</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><video src="assets/proj_11_1783974324.webm" muted loop playsinline autoplay controls preload="metadata"></video></div>
+        <div class="pbody">
+          <h3>Chocolate &amp; Wood-Box Detection (Quality Control)</h3>
+          <p>Production-line detector that counts and checks chocolates and wooden boxes, spotting empty slots and size outliers for automated packaging QC.</p>
+          <div class="techrow"><span class="tech">object detection</span><span class="tech">industrial ai</span><span class="tech">opencv</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><video src="assets/proj_12_1783974324.mp4" muted loop playsinline autoplay controls preload="metadata"></video></div>
+        <div class="pbody">
+          <h3>Industrial QR &amp; Barcode Detection</h3>
+          <p>High-speed QR and barcode reading on industrial cameras (SensoPart), robust to glare, angle and motion blur.</p>
+          <div class="techrow"><span class="tech">machine vision</span><span class="tech">opencv</span><span class="tech">industrial automation</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article></div>
+  </div>
+  <footer>© Ibtehaj</footer>
+</body>
+</html>

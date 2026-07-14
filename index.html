@@ -69,18 +69,54 @@
     <div class="headline">AI &amp; Computer Vision Engineer</div>
     <p class="bio">I build AI systems that see, listen and act — object detection, tracking and segmentation, industrial anomaly detection, generative vision and voice interfaces. From research prototypes to deployed industrial solutions.</p>
     
-    <div class="plinks"><a class="plink" href="https://github.com/ibtehajali67" target="_blank" rel="noopener">GitHub</a><a class="plink" href="https://www.linkedin.com/in/syed-ahmad-ibtehaj-ali/" target="_blank" rel="noopener">LinkedIn</a><a class="plink" href="https://www.upwork.com/freelancers/~01fa48d533c5a8c388" target="_blank" rel="noopener">Upwork</a><a class="plink" href="https://www.fiverr.com/ibtihajali" target="_blank" rel="noopener">Fiverr</a><a class="plink" href="mailto:expandalpha975@gmail.com" target="_blank" rel="noopener">Email</a></div>
+    <div class="plinks"><a class="plink" href="https://www.linkedin.com/in/syed-ahmad-ibtehaj-ali/" target="_blank" rel="noopener">LinkedIn</a><a class="plink" href="mailto:expandalpha975@gmail.com" target="_blank" rel="noopener">Email</a><a class="plink" href="https://github.com/ibtehajali67" target="_blank" rel="noopener">GitHub</a></div>
   </div></div>
   <div class="wrap">
     <h2>Skills</h2><div class="techrow skillrow"><span class="tech">Python</span><span class="tech">PyTorch</span><span class="tech">TensorFlow/Keras</span><span class="tech">OpenCV</span><span class="tech">YOLO</span><span class="tech">Segment Anything</span><span class="tech">PaDiM/PatchCore</span><span class="tech">LLMs &amp; RAG</span><span class="tech">FastAPI</span><span class="tech">Docker</span><span class="tech">Speech Recognition</span><span class="tech">3D Reconstruction</span><span class="tech">ChromaDB</span><span class="tech">Celery</span><span class="tech">Linux</span></div>
     <h2>Projects</h2>
     <div class="grid">
       <article class="project">
-        <div class="thumb"><img src="assets/proj_expandai_cover.png" alt="Expand AI — Booth Design Platform" loading="lazy"></div>
+        <div class="thumb"><img src="assets/proj_16_1784038872.gif" alt="Real-Time Multi-Object Tracking" loading="lazy"></div>
         <div class="pbody">
-          <h3>Expand AI — Booth Design Platform</h3>
-          <p>AI platform for the exhibition industry: reads a client brief, RFP document or reference image and generates complete exhibition booth design concepts, plus automated presentation and financial-proposal generation. Built with LLMs, retrieval-augmented generation over documents, and an async generation pipeline.</p>
-          <div class="techrow"><span class="tech">llm</span><span class="tech">generative ai</span><span class="tech">rag</span><span class="tech">fastapi</span><span class="tech">celery</span><span class="tech">vector database</span></div>
+          <h3>Real-Time Multi-Object Tracking</h3>
+          <p>Live tracking of a moving person across a video feed: the model locks onto the subject and keeps a stable bounding box through motion, turns and partial occlusion, frame by frame in real time.</p>
+          <div class="techrow"><span class="tech">python</span><span class="tech">opencv</span><span class="tech">deep learning</span><span class="tech">object tracking</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_17_1784038872.png" alt="Pallet Instance Segmentation" loading="lazy"></div>
+        <div class="pbody">
+          <h3>Pallet Instance Segmentation</h3>
+          <p>Pixel-accurate segmentation of wooden pallets from cluttered warehouse backgrounds — the model masks out exactly the pallet shape (slats, gaps and all), a building block for automated pallet handling and robotic pick points.</p>
+          <div class="techrow"><span class="tech">instance segmentation</span><span class="tech">segment anything</span><span class="tech">opencv</span><span class="tech">pytorch</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><video src="assets/proj_18_1784038872.mp4" muted loop playsinline autoplay controls preload="metadata"></video></div>
+        <div class="pbody">
+          <h3>Robotic Palletization HMI</h3>
+          <p>Desktop control app for a palletizing robot cell: operators set pallet size, box dimensions and layer count while a live camera feed detects the pallet&#x27;s corner points and rotation angle for precise robot placement.</p>
+          <div class="techrow"><span class="tech">computer vision</span><span class="tech">robotics</span><span class="tech">hmi</span><span class="tech">python</span><span class="tech">opencv</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_19_1784038872.jpg" alt="Color-Selective Bar Detection &amp; Orientation" loading="lazy"></div>
+        <div class="pbody">
+          <h3>Color-Selective Bar Detection &amp; Orientation</h3>
+          <p>Detects colored bars on a conveyor while ignoring black ones, then segments each bar, draws its bounding box, and computes its tilt angle and center point — used for sorting and orientation-aware robotic pickup.</p>
+          <div class="techrow"><span class="tech">object detection</span><span class="tech">image segmentation</span><span class="tech">opencv</span><span class="tech">orientation estimation</span></div>
+          <div class="btnrow"></div>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="assets/proj_20_1784038872.jpg" alt="Cheese Wheel Detection &amp; Counting" loading="lazy"></div>
+        <div class="pbody">
+          <h3>Cheese Wheel Detection &amp; Counting</h3>
+          <p>Object detector that spots and counts cheese wheels on a production line from an overhead camera, with confidence scores per detection — for automated inventory and packaging counts.</p>
+          <div class="techrow"><span class="tech">yolo</span><span class="tech">object detection</span><span class="tech">industrial ai</span></div>
           <div class="btnrow"></div>
         </div>
       </article>
@@ -108,24 +144,6 @@
           <h3>2D Photo → 3D Model Pipeline</h3>
           <p>Converts a single 2D photo into a printable 3D model: background removal, human parsing (CIHP-PGN), depth estimation and mesh generation to STL — bridging computer vision and 3D printing.</p>
           <div class="techrow"><span class="tech">3d reconstruction</span><span class="tech">depth estimation</span><span class="tech">human parsing</span><span class="tech">stl</span><span class="tech">python</span></div>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project">
-        <div class="thumb"><video src="assets/proj_2_1783974324.mp4" muted loop playsinline autoplay controls preload="metadata"></video></div>
-        <div class="pbody">
-          <h3>Real-Time Object &amp; Person Tracking</h3>
-          <p>Multi-object tracking system that locks onto people and objects across video streams in real time, keeping stable IDs through occlusions and fast motion. Tested on pedestrians, animals and street scenes.</p>
-          <div class="techrow"><span class="tech">python</span><span class="tech">opencv</span><span class="tech">deep learning</span><span class="tech">object tracking</span></div>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project">
-        <div class="thumb"><img src="assets/proj_3_1783974324.png" alt="Object Detection &amp; Segmentation" loading="lazy"></div>
-        <div class="pbody">
-          <h3>Object Detection &amp; Segmentation</h3>
-          <p>Detection and pixel-perfect segmentation pipeline using modern models (YOLO-family detectors and Segment Anything). Draws boxes, masks and labels on images and live video.</p>
-          <div class="techrow"><span class="tech">yolo</span><span class="tech">segment anything</span><span class="tech">pytorch</span><span class="tech">opencv</span></div>
           <div class="btnrow"></div>
         </div>
       </article>

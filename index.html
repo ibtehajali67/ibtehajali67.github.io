@@ -75,7 +75,8 @@
                 color: #dbe6ff; font: 600 12px/1 var(--mono); padding: 4px 9px;
                 border-radius: 6px; letter-spacing: .02em; }
   /* sections */
-  .section { padding: 10px 0 30px; }
+  .section { padding: 10px 0 30px; scroll-margin-top: 70px; }
+  footer { scroll-margin-top: 70px; }
   .eyebrow { font: 600 12px/1 var(--mono); color: var(--accent);
               letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
   h2 { font-size: 22px; margin: 4px 0 22px; }
@@ -155,6 +156,44 @@
             color: var(--muted); background: var(--panel); transition: .15s; }
   .ficon:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
   .copy { color: var(--muted); font-size: 13px; margin-top: 20px; }
+  /* about */
+  .about-text { color: var(--muted); font-size: 17px; line-height: 1.75;
+                 max-width: 760px; }
+  /* featured cards */
+  .feat-grid { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+  .project.feat { border-color: #33405f; }
+  .project.feat .pbody { background: linear-gradient(180deg, rgba(91,140,255,.05), transparent); }
+  .detailbtn { cursor: pointer; border: 1px solid var(--border); background: transparent;
+                color: var(--text); }
+  .detailbtn:hover { border-color: var(--accent); color: var(--accent); }
+  .project[data-detail] { cursor: pointer; }
+  /* detail modal */
+  .detailmodal { position: fixed; inset: 0; background: rgba(5,6,10,.9);
+                  display: none; z-index: 120; overflow-y: auto; padding: 40px 20px; }
+  .detailmodal.open { display: block; }
+  .dm-panel { max-width: 860px; margin: 0 auto; background: var(--panel);
+               border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
+  .dm-content { padding: 0 0 30px; }
+  .detail-hero { width: 100%; max-height: 420px; overflow: hidden; background: #10131c; }
+  .detail-hero .thumb { aspect-ratio: auto; cursor: default; max-height: 420px; }
+  .detail-hero img, .detail-hero video { width: 100%; max-height: 420px;
+                object-fit: contain; display: block; }
+  .dm-content .catbadge { margin: 22px 26px 0; }
+  .detail-title { font-size: 26px; margin: 12px 26px 6px; }
+  .detail-grid { display: grid; grid-template-columns: 1fr 240px; gap: 28px;
+                  padding: 12px 26px 0; }
+  .ds { margin-bottom: 22px; }
+  .ds-h { font: 600 12px/1 var(--mono); color: var(--accent); letter-spacing: .08em;
+           text-transform: uppercase; margin-bottom: 8px; }
+  .ds p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+  .ds ul { color: var(--muted); font-size: 15px; line-height: 1.7; padding-left: 18px; }
+  .ds li { margin-bottom: 4px; }
+  .detail-info { background: var(--bg); border: 1px solid var(--border);
+                  border-radius: 12px; padding: 16px 18px; align-self: start; }
+  .pi-row { display: flex; justify-content: space-between; gap: 10px;
+             padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .pi-row:last-child { border-bottom: 0; }
+  .pi-row span { color: var(--muted); }
   /* AI network background */
   #ai-bg { position: absolute; inset: 0; width: 100%; height: 100%;
             pointer-events: none; opacity: .55; }
@@ -163,14 +202,15 @@
     .hero-grid { grid-template-columns: 1fr; }
     .hero-visual { order: -1; }
     .navlinks { display: none; }
+    .detail-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
   <nav class="topnav"><div class="wrap navrow">
     <span class="brand">Syed Ahmad Ibtehaj Ali</span>
-    <div class="navlinks"><a href="#skills">Skills</a><a href="#projects">Projects</a>
-      <a href="#contact">Contact</a></div>
+    <div class="navlinks"><a href="#about">About</a><a href="#projects">Projects</a>
+      <a href="#skills">Skills</a><a href="#contact">Contact</a></div>
   </div></nav>
   <section class="hero" id="top">
     <canvas id="ai-bg"></canvas>
@@ -178,7 +218,7 @@
     <div class="hero-copy">
       <h1>Syed Ahmad Ibtehaj Ali</h1>
       <div class="headline">Computer Vision Engineer</div>
-      <p class="bio">Building intelligent vision systems that enable machines to perceive, analyze, and understand the physical world across industrial automation, safety, robotics, healthcare, and human-centered applications.</p>
+      <p class="bio">Building intelligent vision systems that transform real-world challenges into practical AI solutions across industrial automation, safety, robotics, healthcare, and human-centered applications.</p>
       <div class="loc">📍 Bari, Italy</div>
       <div class="plinks"><a class="plink" href="https://www.linkedin.com/in/syed-ahmad-ibtehaj-ali/" target="_blank" rel="noopener">LinkedIn</a><a class="plink" href="https://github.com/ibtehajali67" target="_blank" rel="noopener">GitHub</a></div>
     </div>
@@ -192,161 +232,227 @@
     </div>
   </div></section>
   
-    <section id="skills" class="section"><div class="wrap">
-      <div class="eyebrow">// 01 — Core stack</div>
-      <h2>Skills</h2>
-      <div class="techrow skillrow"><span class="tech">Deep Learning</span><span class="tech">Computer Vision</span><span class="tech">Object Detection</span><span class="tech">Image Segmentation</span><span class="tech">Anomaly Detection</span><span class="tech">Natural Language Processing</span><span class="tech">Speech Recognition</span><span class="tech">3D Reconstruction</span><span class="tech">Robotics Integration</span><span class="tech">Backend Development</span><span class="tech">Cloud &amp; DevOps</span><span class="tech">Distributed Systems</span><span class="tech">Vector Databases</span><span class="tech">Linux</span></div>
+    <section id="about" class="section"><div class="wrap">
+      <div class="eyebrow">// About</div>
+      <h2>About Me</h2>
+      <p class="about-text">I am a Computer Vision Engineer specializing in intelligent vision systems for industrial automation, safety, robotics, healthcare, and AI-powered inspection. I enjoy developing practical AI solutions that bridge research with real-world deployment.</p>
     </div></section>
-  <section id="projects" class="section"><div class="wrap">
-    <div class="eyebrow">// 02 — Selected work</div>
-    <h2>Projects</h2>
-    <div class="catfilters"><button class="catfilter active" data-filter="">All</button><button class="catfilter" data-filter="Human AI">Human AI</button><button class="catfilter" data-filter="Robotics &amp; Automation">Robotics &amp; Automation</button><button class="catfilter" data-filter="Industrial AI">Industrial AI</button><button class="catfilter" data-filter="Healthcare AI">Healthcare AI</button><button class="catfilter" data-filter="Vision AI Safety">Vision AI Safety</button></div>
-    <div class="grid">
-      <article class="project" data-category="Human AI">
-        <div class="thumb" data-zoom data-src="assets/proj_16_1784581552.mp4" data-video data-title="Real-Time Multi-Object Tracking"><video src="assets/proj_16_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class="zoomhint">🔍</div></div>
+  
+    <section id="featured" class="section"><div class="wrap">
+      <div class="eyebrow">// 01 — Featured work</div>
+      <h2>Featured Projects</h2>
+      <div class="grid feat-grid">
+      <article class="project feat" data-category="Human AI" data-detail="16">
+        <div class="thumb" data-zoom data-src="assets/proj_16_1784581552.mp4" data-video data-title="Real-Time Multi-Object Tracking"><video src="assets/proj_16_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class=zoomhint>🔍</div></div>
         <div class="pbody">
           <div class="catbadge">Human AI</div>
           <h3>Real-Time Multi-Object Tracking</h3>
           <p>Live tracking of a moving person across a video feed: the model locks onto the subject and keeps a stable bounding box through motion, turns and partial occlusion, frame by frame in real time.</p>
-          <div class="btnrow"></div>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="16">View details →</button></div>
         </div>
       </article>
-      <article class="project" data-category="Robotics &amp; Automation">
-        <div class="thumb" data-zoom data-src="assets/proj_18_1784582685.png" data-title="Robotic Palletization System"><img src="assets/proj_18_1784582685.png" alt="Robotic Palletization System" loading="lazy"><div class="zoomhint">🔍</div></div>
+      <article class="project feat" data-category="Robotics &amp; Automation" data-detail="18">
+        <div class="thumb" data-zoom data-src="assets/proj_18_1784582685.png" data-title="Robotic Palletization System"><img src="assets/proj_18_1784582685.png" alt="Robotic Palletization System" loading="lazy"><div class=zoomhint>🔍</div></div>
         <div class="pbody">
           <div class="catbadge">Robotics &amp; Automation</div>
           <h3>Robotic Palletization System</h3>
           <p>End-to-end pallet-handling system for a robotic palletizing cell. An AI vision model masks out the pallet shape precisely from cluttered backgrounds and detects its corner points and rotation angle for accurate robot placement. A novel 3D palletization optimizer then computes the best way to stack boxes on the pallet — arranging box positions, gaps and layers to maximise stability and space use — all driven from a desktop control app where the operator sets pallet size, box dimensions and layer count.</p>
-          <div class="btnrow"></div>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="18">View details →</button></div>
         </div>
       </article>
-      <article class="project" data-category="Industrial AI">
-        <div class="thumb" data-zoom data-src="assets/proj_19_1784581553.jpg" data-title="Color-Selective Bar Detection &amp; Orientation"><img src="assets/proj_19_1784581553.jpg" alt="Color-Selective Bar Detection &amp; Orientation" loading="lazy"><div class="zoomhint">🔍</div></div>
-        <div class="pbody">
-          <div class="catbadge">Industrial AI</div>
-          <h3>Color-Selective Bar Detection &amp; Orientation</h3>
-          <p>Detects colored bars on a conveyor while ignoring black ones, then segments each bar, draws its bounding box, and computes its tilt angle and center point — used for sorting and orientation-aware robotic pickup.</p>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project" data-category="Industrial AI">
-        <div class="thumb" data-zoom data-src="assets/proj_20_1784581553.mp4" data-video data-title="Cheese Wheel Detection &amp; Counting"><video src="assets/proj_20_1784581553.mp4" muted loop playsinline autoplay preload="metadata"></video><div class="zoomhint">🔍</div></div>
-        <div class="pbody">
-          <div class="catbadge">Industrial AI</div>
-          <h3>Cheese Wheel Detection &amp; Counting</h3>
-          <p>Object detector that spots and counts cheese wheels on a production line from an overhead camera, with confidence scores per detection — for automated inventory and packaging counts.</p>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project" data-category="Healthcare AI">
-        <div class="thumb" data-zoom data-src="assets/proj_1_1784581552.png" data-title="Dental AI — Teeth Segmentation &amp; Shade Analysis"><img src="assets/proj_1_1784581552.png" alt="Dental AI — Teeth Segmentation &amp; Shade Analysis" loading="lazy"><div class="zoomhint">🔍</div></div>
+      <article class="project feat" data-category="Healthcare AI" data-detail="1">
+        <div class="thumb" data-zoom data-src="assets/proj_1_1784581552.png" data-title="Dental AI — Teeth Segmentation &amp; Shade Analysis"><img src="assets/proj_1_1784581552.png" alt="Dental AI — Teeth Segmentation &amp; Shade Analysis" loading="lazy"><div class=zoomhint>🔍</div></div>
         <div class="pbody">
           <div class="catbadge">Healthcare AI</div>
           <h3>Dental AI — Teeth Segmentation &amp; Shade Analysis</h3>
           <p>Dental whitening MVP: measures individual teeth shade in smile photos and calibrates colors against a standard color reference card so shade measurements stay consistent across different cameras and lighting conditions.</p>
-          <div class="btnrow"></div>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="1">View details →</button></div>
         </div>
       </article>
-      <article class="project" data-category="Industrial AI">
-        <div class="thumb" data-zoom data-src="assets/proj_2_1784581552.png" data-title="Textile Defect Detection"><img src="assets/proj_2_1784581552.png" alt="Textile Defect Detection" loading="lazy"><div class="zoomhint">🔍</div></div>
-        <div class="pbody">
-          <div class="catbadge">Industrial AI</div>
-          <h3>Textile Defect Detection</h3>
-          <p>An anomaly-detection approach for fabric quality control: trained a model on a custom clothes dataset to separate good fabric from wrinkles, creases and weaving defects, learning only from defect-free samples.</p>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project" data-category="Industrial AI">
-        <div class="thumb" data-zoom data-src="assets/proj_6_1784581552.png" data-title="Industrial Anomaly Detection"><img src="assets/proj_6_1784581552.png" alt="Industrial Anomaly Detection" loading="lazy"><div class="zoomhint">🔍</div></div>
+      <article class="project feat" data-category="Industrial AI" data-detail="6">
+        <div class="thumb" data-zoom data-src="assets/proj_6_1784581552.png" data-title="Industrial Anomaly Detection"><img src="assets/proj_6_1784581552.png" alt="Industrial Anomaly Detection" loading="lazy"><div class=zoomhint>🔍</div></div>
         <div class="pbody">
           <div class="catbadge">Industrial AI</div>
           <h3>Industrial Anomaly Detection</h3>
           <p>Vision-based quality control that learns what a normal product looks like and flags scratches, dents and defects on the production line — no labelled defect data needed.</p>
-          <div class="btnrow"></div>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="6">View details →</button></div>
         </div>
       </article>
-      <article class="project" data-category="Vision AI Safety">
-        <div class="thumb" data-zoom data-src="assets/proj_7_1784581552.mp4" data-video data-title="Vehicle &amp; Road-Weather Classification"><video src="assets/proj_7_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class="zoomhint">🔍</div></div>
+      <article class="project feat" data-category="Vision AI Safety" data-detail="7">
+        <div class="thumb" data-zoom data-src="assets/proj_7_1784581552.mp4" data-video data-title="Vehicle &amp; Road-Weather Classification"><video src="assets/proj_7_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class=zoomhint>🔍</div></div>
         <div class="pbody">
           <div class="catbadge">Vision AI Safety</div>
           <h3>Vehicle &amp; Road-Weather Classification</h3>
           <p>Video classification models that recognise vehicle types in traffic footage and classify road weather conditions (rain, fog, snow) for driver-assistance use cases.</p>
-          <div class="btnrow"></div>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="7">View details →</button></div>
         </div>
       </article>
-      <article class="project" data-category="Robotics &amp; Automation">
-        <div class="thumb" data-zoom data-src="assets/proj_8_1784581552.mp4" data-video data-title="Voice-Controlled Robot"><video src="assets/proj_8_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class="zoomhint">🔍</div></div>
-        <div class="pbody">
-          <div class="catbadge">Robotics &amp; Automation</div>
-          <h3>Voice-Controlled Robot</h3>
-          <p>A robot that listens: spoken commands are transcribed and mapped to movement in real time, combining speech recognition with motor control.</p>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project" data-category="Human AI">
-        <div class="thumb" data-zoom data-src="assets/proj_10_1784581552.png" data-title="Face Swap &amp; Human Part Replacement"><img src="assets/proj_10_1784581552.png" alt="Face Swap &amp; Human Part Replacement" loading="lazy"><div class="zoomhint">🔍</div></div>
-        <div class="pbody">
-          <div class="catbadge">Human AI</div>
-          <h3>Face Swap &amp; Human Part Replacement</h3>
-          <p>Generative vision experiments: swapping faces and replacing human parts (e.g. glasses/lenses) in photos while preserving lighting and expression.</p>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project" data-category="Human AI">
-        <div class="thumb" data-zoom data-src="assets/proj_11_1784581552.jpg" data-title="Human Pose Detection"><img src="assets/proj_11_1784581552.jpg" alt="Human Pose Detection" loading="lazy"><div class="zoomhint">🔍</div></div>
-        <div class="pbody">
-          <div class="catbadge">Human AI</div>
-          <h3>Human Pose Detection</h3>
-          <p>Skeleton-based pose estimation that tracks body keypoints in images and video — the building block for gesture control, fitness tracking and safety monitoring.</p>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project" data-category="Human AI">
-        <div class="thumb" data-zoom data-src="assets/proj_12_1784581552.png" data-title="Speech-to-Text &amp; Voice Gender Classification"><img src="assets/proj_12_1784581552.png" alt="Speech-to-Text &amp; Voice Gender Classification" loading="lazy"><div class="zoomhint">🔍</div></div>
-        <div class="pbody">
-          <div class="catbadge">Human AI</div>
-          <h3>Speech-to-Text &amp; Voice Gender Classification</h3>
-          <p>Audio AI pipeline: transcribes speech to text and classifies speaker gender from voice features.</p>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project" data-category="Industrial AI">
-        <div class="thumb" data-zoom data-src="assets/proj_13_1784581552.mp4" data-video data-title="Chocolate &amp; Wood-Box Detection (Quality Control)"><video src="assets/proj_13_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class="zoomhint">🔍</div></div>
-        <div class="pbody">
-          <div class="catbadge">Industrial AI</div>
-          <h3>Chocolate &amp; Wood-Box Detection (Quality Control)</h3>
-          <p>Production-line detector that counts and checks chocolates and wooden boxes, spotting empty slots and size outliers for automated packaging QC.</p>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project" data-category="Industrial AI">
-        <div class="thumb" data-zoom data-src="assets/proj_14_1784581552.mp4" data-video data-title="Industrial QR &amp; Barcode Detection"><video src="assets/proj_14_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class="zoomhint">🔍</div></div>
-        <div class="pbody">
-          <div class="catbadge">Industrial AI</div>
-          <h3>Industrial QR &amp; Barcode Detection</h3>
-          <p>High-speed QR and barcode reading on industrial cameras, robust to glare, angle and motion blur.</p>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project" data-category="Human AI">
-        <div class="thumb" data-zoom data-src="assets/proj_21_1784581553.jpg" data-title="Virtual Try-On — Eyes, Earrings &amp; Necklaces"><img src="assets/proj_21_1784581553.jpg" alt="Virtual Try-On — Eyes, Earrings &amp; Necklaces" loading="lazy"><div class="zoomhint">🔍</div></div>
-        <div class="pbody">
-          <div class="catbadge">Human AI</div>
-          <h3>Virtual Try-On — Eyes, Earrings &amp; Necklaces</h3>
-          <p>AR-style beauty try-on: detects facial landmarks to recolor the iris (virtual contact lenses) and naturally blend earrings, necklaces and lipstick onto a face photo, respecting head pose and lighting.</p>
-          <div class="btnrow"></div>
-        </div>
-      </article>
-      <article class="project" data-category="Human AI">
-        <div class="thumb" data-zoom data-src="assets/proj_25_1784581553.mp4" data-video data-title="Conversational AI with 3D Talking Avatar"><video src="assets/proj_25_1784581553.mp4" muted loop playsinline autoplay preload="metadata"></video><div class="zoomhint">🔍</div></div>
+      <article class="project feat" data-category="Human AI" data-detail="25">
+        <div class="thumb" data-zoom data-src="assets/proj_25_1784581553.mp4" data-video data-title="Conversational AI with 3D Talking Avatar"><video src="assets/proj_25_1784581553.mp4" muted loop playsinline autoplay preload="metadata"></video><div class=zoomhint>🔍</div></div>
         <div class="pbody">
           <div class="catbadge">Human AI</div>
           <h3>Conversational AI with 3D Talking Avatar</h3>
           <p>An interactive voice assistant that listens to spoken questions, replies in natural language, and animates a lifelike 3D avatar face in sync with the conversation — combining speech recognition, conversational AI, and real-time facial animation.</p>
-          <div class="btnrow"></div>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="25">View details →</button></div>
+        </div>
+      </article></div>
+    </div></section>
+  <section id="projects" class="section"><div class="wrap">
+    <div class="eyebrow">// 02 — All work</div>
+    <h2>Selected Projects</h2>
+    <div class="catfilters"><button class="catfilter active" data-filter="">All</button><button class="catfilter" data-filter="Human AI">Human AI</button><button class="catfilter" data-filter="Robotics &amp; Automation">Robotics &amp; Automation</button><button class="catfilter" data-filter="Industrial AI">Industrial AI</button><button class="catfilter" data-filter="Healthcare AI">Healthcare AI</button><button class="catfilter" data-filter="Vision AI Safety">Vision AI Safety</button></div>
+    <div class="grid">
+      <article class="project" data-category="Human AI" data-detail="16">
+        <div class="thumb" data-zoom data-src="assets/proj_16_1784581552.mp4" data-video data-title="Real-Time Multi-Object Tracking"><video src="assets/proj_16_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Human AI</div>
+          <h3>Real-Time Multi-Object Tracking</h3>
+          <p>Live tracking of a moving person across a video feed: the model locks onto the subject and keeps a stable bounding box through motion, turns and partial occlusion, frame by frame in real time.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="16">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Robotics &amp; Automation" data-detail="18">
+        <div class="thumb" data-zoom data-src="assets/proj_18_1784582685.png" data-title="Robotic Palletization System"><img src="assets/proj_18_1784582685.png" alt="Robotic Palletization System" loading="lazy"><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Robotics &amp; Automation</div>
+          <h3>Robotic Palletization System</h3>
+          <p>End-to-end pallet-handling system for a robotic palletizing cell. An AI vision model masks out the pallet shape precisely from cluttered backgrounds and detects its corner points and rotation angle for accurate robot placement. A novel 3D palletization optimizer then computes the best way to stack boxes on the pallet — arranging box positions, gaps and layers to maximise stability and space use — all driven from a desktop control app where the operator sets pallet size, box dimensions and layer count.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="18">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Industrial AI" data-detail="19">
+        <div class="thumb" data-zoom data-src="assets/proj_19_1784581553.jpg" data-title="Color-Selective Bar Detection &amp; Orientation"><img src="assets/proj_19_1784581553.jpg" alt="Color-Selective Bar Detection &amp; Orientation" loading="lazy"><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Industrial AI</div>
+          <h3>Color-Selective Bar Detection &amp; Orientation</h3>
+          <p>Detects colored bars on a conveyor while ignoring black ones, then segments each bar, draws its bounding box, and computes its tilt angle and center point — used for sorting and orientation-aware robotic pickup.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="19">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Industrial AI" data-detail="20">
+        <div class="thumb" data-zoom data-src="assets/proj_20_1784581553.mp4" data-video data-title="Cheese Wheel Detection &amp; Counting"><video src="assets/proj_20_1784581553.mp4" muted loop playsinline autoplay preload="metadata"></video><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Industrial AI</div>
+          <h3>Cheese Wheel Detection &amp; Counting</h3>
+          <p>Object detector that spots and counts cheese wheels on a production line from an overhead camera, with confidence scores per detection — for automated inventory and packaging counts.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="20">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Healthcare AI" data-detail="1">
+        <div class="thumb" data-zoom data-src="assets/proj_1_1784581552.png" data-title="Dental AI — Teeth Segmentation &amp; Shade Analysis"><img src="assets/proj_1_1784581552.png" alt="Dental AI — Teeth Segmentation &amp; Shade Analysis" loading="lazy"><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Healthcare AI</div>
+          <h3>Dental AI — Teeth Segmentation &amp; Shade Analysis</h3>
+          <p>Dental whitening MVP: measures individual teeth shade in smile photos and calibrates colors against a standard color reference card so shade measurements stay consistent across different cameras and lighting conditions.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="1">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Industrial AI" data-detail="2">
+        <div class="thumb" data-zoom data-src="assets/proj_2_1784581552.png" data-title="Textile Defect Detection"><img src="assets/proj_2_1784581552.png" alt="Textile Defect Detection" loading="lazy"><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Industrial AI</div>
+          <h3>Textile Defect Detection</h3>
+          <p>An anomaly-detection approach for fabric quality control: trained a model on a custom clothes dataset to separate good fabric from wrinkles, creases and weaving defects, learning only from defect-free samples.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="2">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Industrial AI" data-detail="6">
+        <div class="thumb" data-zoom data-src="assets/proj_6_1784581552.png" data-title="Industrial Anomaly Detection"><img src="assets/proj_6_1784581552.png" alt="Industrial Anomaly Detection" loading="lazy"><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Industrial AI</div>
+          <h3>Industrial Anomaly Detection</h3>
+          <p>Vision-based quality control that learns what a normal product looks like and flags scratches, dents and defects on the production line — no labelled defect data needed.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="6">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Vision AI Safety" data-detail="7">
+        <div class="thumb" data-zoom data-src="assets/proj_7_1784581552.mp4" data-video data-title="Vehicle &amp; Road-Weather Classification"><video src="assets/proj_7_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Vision AI Safety</div>
+          <h3>Vehicle &amp; Road-Weather Classification</h3>
+          <p>Video classification models that recognise vehicle types in traffic footage and classify road weather conditions (rain, fog, snow) for driver-assistance use cases.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="7">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Robotics &amp; Automation" data-detail="8">
+        <div class="thumb" data-zoom data-src="assets/proj_8_1784581552.mp4" data-video data-title="Voice-Controlled Robot"><video src="assets/proj_8_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Robotics &amp; Automation</div>
+          <h3>Voice-Controlled Robot</h3>
+          <p>A robot that listens: spoken commands are transcribed and mapped to movement in real time, combining speech recognition with motor control.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="8">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Human AI" data-detail="10">
+        <div class="thumb" data-zoom data-src="assets/proj_10_1784581552.png" data-title="Face Swap &amp; Human Part Replacement"><img src="assets/proj_10_1784581552.png" alt="Face Swap &amp; Human Part Replacement" loading="lazy"><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Human AI</div>
+          <h3>Face Swap &amp; Human Part Replacement</h3>
+          <p>Generative vision experiments: swapping faces and replacing human parts (e.g. glasses/lenses) in photos while preserving lighting and expression.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="10">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Human AI" data-detail="11">
+        <div class="thumb" data-zoom data-src="assets/proj_11_1784581552.jpg" data-title="Human Pose Detection"><img src="assets/proj_11_1784581552.jpg" alt="Human Pose Detection" loading="lazy"><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Human AI</div>
+          <h3>Human Pose Detection</h3>
+          <p>Skeleton-based pose estimation that tracks body keypoints in images and video — the building block for gesture control, fitness tracking and safety monitoring.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="11">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Human AI" data-detail="12">
+        <div class="thumb" data-zoom data-src="assets/proj_12_1784581552.png" data-title="Speech-to-Text &amp; Voice Gender Classification"><img src="assets/proj_12_1784581552.png" alt="Speech-to-Text &amp; Voice Gender Classification" loading="lazy"><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Human AI</div>
+          <h3>Speech-to-Text &amp; Voice Gender Classification</h3>
+          <p>Audio AI pipeline: transcribes speech to text and classifies speaker gender from voice features.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="12">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Industrial AI" data-detail="13">
+        <div class="thumb" data-zoom data-src="assets/proj_13_1784581552.mp4" data-video data-title="Chocolate &amp; Wood-Box Detection (Quality Control)"><video src="assets/proj_13_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Industrial AI</div>
+          <h3>Chocolate &amp; Wood-Box Detection (Quality Control)</h3>
+          <p>Production-line detector that counts and checks chocolates and wooden boxes, spotting empty slots and size outliers for automated packaging QC.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="13">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Industrial AI" data-detail="14">
+        <div class="thumb" data-zoom data-src="assets/proj_14_1784581552.mp4" data-video data-title="Industrial QR &amp; Barcode Detection"><video src="assets/proj_14_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Industrial AI</div>
+          <h3>Industrial QR &amp; Barcode Detection</h3>
+          <p>High-speed QR and barcode reading on industrial cameras, robust to glare, angle and motion blur.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="14">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Human AI" data-detail="21">
+        <div class="thumb" data-zoom data-src="assets/proj_21_1784581553.jpg" data-title="Virtual Try-On — Eyes, Earrings &amp; Necklaces"><img src="assets/proj_21_1784581553.jpg" alt="Virtual Try-On — Eyes, Earrings &amp; Necklaces" loading="lazy"><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Human AI</div>
+          <h3>Virtual Try-On — Eyes, Earrings &amp; Necklaces</h3>
+          <p>AR-style beauty try-on: detects facial landmarks to recolor the iris (virtual contact lenses) and naturally blend earrings, necklaces and lipstick onto a face photo, respecting head pose and lighting.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="21">View details →</button></div>
+        </div>
+      </article>
+      <article class="project" data-category="Human AI" data-detail="25">
+        <div class="thumb" data-zoom data-src="assets/proj_25_1784581553.mp4" data-video data-title="Conversational AI with 3D Talking Avatar"><video src="assets/proj_25_1784581553.mp4" muted loop playsinline autoplay preload="metadata"></video><div class=zoomhint>🔍</div></div>
+        <div class="pbody">
+          <div class="catbadge">Human AI</div>
+          <h3>Conversational AI with 3D Talking Avatar</h3>
+          <p>An interactive voice assistant that listens to spoken questions, replies in natural language, and animates a lifelike 3D avatar face in sync with the conversation — combining speech recognition, conversational AI, and real-time facial animation.</p>
+          <div class="btnrow"><button class="btn detailbtn" data-detail="25">View details →</button></div>
         </div>
       </article></div>
   </div></section>
+  
+    <section id="skills" class="section"><div class="wrap">
+      <div class="eyebrow">// 03 — Capabilities</div>
+      <h2>Skills</h2>
+      <div class="techrow skillrow"><span class="tech">Deep Learning</span><span class="tech">Computer Vision</span><span class="tech">Object Detection</span><span class="tech">Image Segmentation</span><span class="tech">Anomaly Detection</span><span class="tech">Natural Language Processing</span><span class="tech">Speech Recognition</span><span class="tech">3D Reconstruction</span><span class="tech">Robotics Integration</span><span class="tech">Backend Development</span><span class="tech">Cloud &amp; DevOps</span><span class="tech">Distributed Systems</span><span class="tech">Vector Databases</span><span class="tech">Linux</span></div>
+    </div></section>
   <footer id="contact"><div class="wrap">
     <div class="eyebrow">// Get in touch</div>
     <h2 style="margin-bottom:18px">Contact</h2>
@@ -364,6 +470,155 @@
     <button class="lb-close" aria-label="Close">✕</button>
     <div id="lb-content"></div>
   </div>
+  <div class="detailmodal" id="detailmodal">
+    <button class="lb-close" aria-label="Close" id="dm-close">✕</button>
+    <div class="dm-panel"><div class="dm-content" id="dm-content"></div></div>
+  </div>
+  
+      <template id="detail-16">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_16_1784581552.mp4" data-video data-title="Real-Time Multi-Object Tracking"><video src="assets/proj_16_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video></div></div>
+        <div class="catbadge">Human AI</div>
+        <h2 class="detail-title">Real-Time Multi-Object Tracking</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>A real-time tracking system that locks onto a moving person in a video feed and follows them smoothly, keeping a stable box around them through motion, turns and brief obstructions.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Following a specific person across a live video is hard when they move quickly, turn away, or are briefly blocked by objects or other people — most systems lose the target.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system continuously locates the subject frame by frame and maintains a steady lock even through rapid movement, direction changes and partial occlusion, so the target is never lost.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Continuous real-time person tracking</li><li>Stable lock through turns and motion</li><li>Recovers after partial occlusion</li><li>Smooth frame-by-frame following</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Security and surveillance</li><li>Retail analytics and footfall</li><li>Sports and performance analysis</li><li>Robotics and follow-me systems</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Delivers reliable, stable tracking of a moving subject in real time, providing a dependable foundation for monitoring, analytics and autonomous following.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Multi-target tracking in crowds</li><li>Re-identification after long absences</li><li>On-device edge deployment</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Human AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-18">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_18_1784582685.png" data-title="Robotic Palletization System"><img src="assets/proj_18_1784582685.png" alt="Robotic Palletization System" loading="lazy"></div></div>
+        <div class="catbadge">Robotics &amp; Automation</div>
+        <h2 class="detail-title">Robotic Palletization System</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>An end-to-end vision system that lets a robotic cell pick, place and stack boxes onto pallets automatically, guided by a live camera and an operator-friendly control screen.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Manual palletizing is slow, physically demanding and inconsistent. Getting a robot to stack boxes reliably requires knowing exactly where the pallet is, how it is rotated, and the smartest way to arrange every box for a stable, space-efficient load.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system detects the pallet and its exact position and rotation from a live camera feed, then a smart palletization planner calculates the optimal placement of every box across layers. Operators simply enter pallet size, box dimensions and layer count on a simple screen, and the robot does the rest.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Automatic pallet detection with position and rotation</li><li>Optimized box-stacking plan for stability and space</li><li>Operator control panel for pallet and box settings</li><li>Live camera guidance for precise robot placement</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Warehouse and logistics automation</li><li>Manufacturing end-of-line packaging</li><li>Distribution and fulfilment centres</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Enables fully automated, repeatable palletizing that maximizes how tightly boxes are stacked while keeping loads stable — reducing manual handling and improving throughput.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Support for mixed box sizes on the same pallet</li><li>Real-time load-stability feedback</li><li>Integration with warehouse management systems</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Robotics &amp; Automation</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-19">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_19_1784581553.jpg" data-title="Color-Selective Bar Detection &amp; Orientation"><img src="assets/proj_19_1784581553.jpg" alt="Color-Selective Bar Detection &amp; Orientation" loading="lazy"></div></div>
+        <div class="catbadge">Industrial AI</div>
+        <h2 class="detail-title">Color-Selective Bar Detection &amp; Orientation</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>A vision system that detects coloured items on a conveyor, ignores unwanted ones, and measures each item&#x27;s orientation for precise robotic handling.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Sorting and picking items on a conveyor requires knowing not just where each item is, but which ones to pick and how they are oriented for a robot to grab them correctly.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system selectively detects items by colour, ignores the ones that should be skipped, and measures each item&#x27;s tilt angle and centre point so a robot can pick and orient it accurately.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Colour-selective item detection</li><li>Ignores unwanted items</li><li>Measures tilt angle and centre point</li><li>Supports orientation-aware picking</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Automated sorting</li><li>Robotic pick-and-place</li><li>Conveyor-based production</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Enables accurate, orientation-aware sorting and picking, letting robots handle items precisely by colour and angle.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Handling overlapping items</li><li>More colour and shape categories</li><li>Faster conveyor speeds</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Industrial AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-20">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_20_1784581553.mp4" data-video data-title="Cheese Wheel Detection &amp; Counting"><video src="assets/proj_20_1784581553.mp4" muted loop playsinline autoplay preload="metadata"></video></div></div>
+        <div class="catbadge">Industrial AI</div>
+        <h2 class="detail-title">Cheese Wheel Detection &amp; Counting</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>A vision system that detects and counts products on a production line from an overhead camera, with a confidence score for every detection.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Counting products accurately on a moving line is difficult by eye and prone to error, yet accurate counts are essential for inventory and packaging.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system spots and counts each product from an overhead view and reports how confident it is in every detection, giving reliable automated counts.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Automatic product detection and counting</li><li>Per-detection confidence scores</li><li>Overhead-camera operation</li><li>Continuous line monitoring</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Inventory management</li><li>Automated packaging counts</li><li>Production-line monitoring</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Provides accurate, automated product counting that improves inventory accuracy and reduces packaging errors.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Multi-product counting</li><li>Reject and anomaly flagging</li><li>Integration with inventory systems</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Industrial AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-1">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_1_1784581552.png" data-title="Dental AI — Teeth Segmentation &amp; Shade Analysis"><img src="assets/proj_1_1784581552.png" alt="Dental AI — Teeth Segmentation &amp; Shade Analysis" loading="lazy"></div></div>
+        <div class="catbadge">Healthcare AI</div>
+        <h2 class="detail-title">Dental AI — Teeth Segmentation &amp; Shade Analysis</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>A dental imaging assistant that analyses smile photos to measure individual tooth colour accurately and consistently, supporting whitening assessment and treatment tracking.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Judging tooth shade by eye is subjective and changes with camera and lighting, making it hard to measure whitening progress reliably or compare before-and-after results fairly.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system identifies each tooth in a photo and measures its shade, then calibrates the colours against a standard reference so results stay consistent no matter which camera or lighting was used.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Individual tooth detection in smile photos</li><li>Objective shade measurement</li><li>Colour calibration across cameras and lighting</li><li>Before-and-after comparison</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Dental whitening assessment</li><li>Cosmetic dentistry treatment tracking</li><li>Tele-dentistry and remote consultations</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Turns a subjective visual judgement into a consistent, repeatable measurement, giving clinics and patients trustworthy before-and-after comparisons.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Mobile app for at-home tracking</li><li>Broader shade-guide coverage</li><li>Automated treatment recommendations</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Healthcare AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-2">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_2_1784581552.png" data-title="Textile Defect Detection"><img src="assets/proj_2_1784581552.png" alt="Textile Defect Detection" loading="lazy"></div></div>
+        <div class="catbadge">Industrial AI</div>
+        <h2 class="detail-title">Textile Defect Detection</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>An automated fabric-inspection system that separates good material from defective material, learning only from flawless samples.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Fabric defects such as wrinkles, creases and weaving faults are varied and hard to catch by eye at production speed, and collecting examples of every defect type is impractical.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system learns what perfect fabric looks like and flags anything that deviates, catching defects it has never seen before without needing defect examples.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Learns from defect-free fabric only</li><li>Detects wrinkles, creases and weaving faults</li><li>Flags unknown defect types</li><li>Consistent automated inspection</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Textile and garment manufacturing</li><li>Fabric quality assurance</li><li>Roll-goods and material inspection</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Provides consistent fabric quality control that catches subtle and unexpected defects without labelled defect data.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Defect classification by type</li><li>Inline speed optimization</li><li>Severity-based sorting</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Industrial AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-6">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_6_1784581552.png" data-title="Industrial Anomaly Detection"><img src="assets/proj_6_1784581552.png" alt="Industrial Anomaly Detection" loading="lazy"></div></div>
+        <div class="catbadge">Industrial AI</div>
+        <h2 class="detail-title">Industrial Anomaly Detection</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>A quality-control system that learns what a good product looks like and automatically flags anything abnormal on the production line — no examples of defects required.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Defects on a production line are rare, varied and unpredictable, so collecting enough examples of every possible flaw to teach a system is impractical. Manual inspection is slow, tiring and inconsistent.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system studies only defect-free products to build an understanding of &#x27;normal&#x27;. Anything that deviates — scratches, dents, missing parts, contamination — is instantly highlighted, even flaw types never seen before.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Learns from good samples only</li><li>Detects unknown and unexpected defects</li><li>Highlights the exact defective region</li><li>Runs continuously on the line</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Manufacturing quality assurance</li><li>Surface and finish inspection</li><li>Electronics and component checking</li><li>Food and packaging inspection</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Catches subtle and previously-unseen defects that manual inspection misses, delivering consistent 24/7 quality control without needing labelled defect data.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Finer localization of tiny defects</li><li>Automatic severity grading</li><li>Self-adjusting to new product variants</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Industrial AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-7">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_7_1784581552.mp4" data-video data-title="Vehicle &amp; Road-Weather Classification"><video src="assets/proj_7_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video></div></div>
+        <div class="catbadge">Vision AI Safety</div>
+        <h2 class="detail-title">Vehicle &amp; Road-Weather Classification</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>A driver-assistance vision system that recognises vehicle types in traffic footage and classifies road-weather conditions such as rain, fog and snow.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Safe driving decisions depend on understanding both the traffic around a vehicle and the weather on the road — conditions that change constantly and are hard to assess automatically.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system analyses video to identify the types of vehicles present and to classify current road-weather conditions, providing situational awareness that supports safer driving decisions.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Vehicle type recognition in traffic</li><li>Road-weather condition classification</li><li>Works on live or recorded video</li><li>Supports real-time awareness</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Driver-assistance systems</li><li>Road safety monitoring</li><li>Traffic management</li><li>Fleet and logistics safety</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Provides automated awareness of traffic and weather conditions, a key building block for safer driver-assistance and road-monitoring systems.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Night and low-visibility robustness</li><li>Hazard and incident detection</li><li>Integration with in-vehicle warnings</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Vision AI Safety</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-8">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_8_1784581552.mp4" data-video data-title="Voice-Controlled Robot"><video src="assets/proj_8_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video></div></div>
+        <div class="catbadge">Robotics &amp; Automation</div>
+        <h2 class="detail-title">Voice-Controlled Robot</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>A robot that responds to spoken commands, converting speech into movement in real time and tracking a person as it operates.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Controlling robots typically requires manual interfaces or programming, which is slow and inaccessible for hands-free or natural interaction.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system understands spoken commands and maps them directly to robot movement, while tracking a person, enabling intuitive hands-free control.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Voice command understanding</li><li>Real-time command-to-motion control</li><li>Person tracking during operation</li><li>Hands-free natural interaction</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Assistive and service robots</li><li>Warehouse and factory helpers</li><li>Research and education platforms</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Enables natural, hands-free robot control through speech, making robotic systems more accessible and intuitive to operate.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Wider command vocabulary</li><li>Noisy-environment robustness</li><li>Multi-robot coordination</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Robotics &amp; Automation</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-10">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_10_1784581552.png" data-title="Face Swap &amp; Human Part Replacement"><img src="assets/proj_10_1784581552.png" alt="Face Swap &amp; Human Part Replacement" loading="lazy"></div></div>
+        <div class="catbadge">Human AI</div>
+        <h2 class="detail-title">Face Swap &amp; Human Part Replacement</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>A generative vision system for realistic face swapping and replacement of facial elements while preserving natural lighting and expression.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Editing faces in photos convincingly — swapping identities or replacing features — usually looks artificial, with mismatched lighting and lost expressions.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system swaps faces and replaces facial elements while keeping the original lighting, pose and expression intact, producing natural-looking results.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Realistic face swapping</li><li>Facial element replacement</li><li>Preserves lighting and expression</li><li>Natural, seamless blending</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Creative and media production</li><li>Virtual try-on experiences</li><li>Entertainment and personalization</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Produces convincing, natural facial edits that maintain realism, supporting creative and personalization use cases.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Video face editing</li><li>Higher-resolution output</li><li>Real-time processing</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Human AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-11">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_11_1784581552.jpg" data-title="Human Pose Detection"><img src="assets/proj_11_1784581552.jpg" alt="Human Pose Detection" loading="lazy"></div></div>
+        <div class="catbadge">Human AI</div>
+        <h2 class="detail-title">Human Pose Detection</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>A pose-detection system that tracks body keypoints in images and video to understand human posture and movement.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Understanding how a person is standing or moving is essential for many applications, but tracking body position reliably across images and video is challenging.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system detects and tracks the key points of the body, building an accurate skeleton that captures posture and movement frame by frame.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Body keypoint detection</li><li>Posture and movement tracking</li><li>Works on images and video</li><li>Foundation for gesture and activity analysis</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Fitness and physiotherapy tracking</li><li>Gesture control</li><li>Safety and ergonomics monitoring</li><li>Sports performance analysis</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Provides reliable body-movement understanding that powers fitness, safety, gesture and sports applications.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Multi-person tracking</li><li>3D pose estimation</li><li>Real-time mobile deployment</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Human AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-12">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_12_1784581552.png" data-title="Speech-to-Text &amp; Voice Gender Classification"><img src="assets/proj_12_1784581552.png" alt="Speech-to-Text &amp; Voice Gender Classification" loading="lazy"></div></div>
+        <div class="catbadge">Human AI</div>
+        <h2 class="detail-title">Speech-to-Text &amp; Voice Gender Classification</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>An audio-AI system that converts speech into text and identifies speaker characteristics from voice.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Turning spoken audio into accurate text and drawing useful insights from voice is difficult, yet essential for accessibility and automation.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system transcribes speech into text and analyses voice features to classify speaker characteristics, enabling automated understanding of audio.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Accurate speech-to-text transcription</li><li>Speaker characteristic classification</li><li>Automated audio understanding</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Accessibility and captioning</li><li>Voice analytics</li><li>Call and meeting transcription</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Delivers automated transcription and voice insight, supporting accessibility and voice-driven automation.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Multilingual transcription</li><li>Speaker identification</li><li>Real-time streaming</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Human AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-13">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_13_1784581552.mp4" data-video data-title="Chocolate &amp; Wood-Box Detection (Quality Control)"><video src="assets/proj_13_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video></div></div>
+        <div class="catbadge">Industrial AI</div>
+        <h2 class="detail-title">Chocolate &amp; Wood-Box Detection (Quality Control)</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>A production-line inspection system that counts and checks products and their packaging, spotting missing items and size outliers.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Manually checking that every package is correctly filled and sized is slow and error-prone at production speed, leading to costly packaging mistakes.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system automatically counts products and packaging, detects empty slots and identifies items that are the wrong size, ensuring every package meets standard before it ships.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Automatic product and package counting</li><li>Empty-slot detection</li><li>Size-outlier identification</li><li>Continuous line inspection</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Food and confectionery packaging</li><li>Fill-level quality control</li><li>Automated packaging lines</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Ensures consistent, correctly-filled packaging by catching missing and mis-sized items automatically, reducing costly errors.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Defect classification</li><li>Higher line-speed support</li><li>Automatic reject handling</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Industrial AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-14">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_14_1784581552.mp4" data-video data-title="Industrial QR &amp; Barcode Detection"><video src="assets/proj_14_1784581552.mp4" muted loop playsinline autoplay preload="metadata"></video></div></div>
+        <div class="catbadge">Industrial AI</div>
+        <h2 class="detail-title">Industrial QR &amp; Barcode Detection</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>A high-speed system that reads QR codes and barcodes reliably on industrial cameras, even under difficult conditions.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Reading codes on fast-moving production lines is unreliable when labels are affected by glare, awkward angles or motion blur, causing missed scans and delays.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system reads QR codes and barcodes at high speed and stays accurate despite glare, angle and motion blur, keeping the line moving.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>High-speed code reading</li><li>Robust to glare and angle</li><li>Handles motion blur</li><li>Industrial-camera ready</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Manufacturing traceability</li><li>Logistics and sorting</li><li>Inventory and warehouse tracking</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Delivers dependable code reading at production speed, improving traceability and reducing missed scans.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Damaged-code recovery</li><li>Multi-code simultaneous reading</li><li>Wider format support</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Industrial AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-21">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_21_1784581553.jpg" data-title="Virtual Try-On — Eyes, Earrings &amp; Necklaces"><img src="assets/proj_21_1784581553.jpg" alt="Virtual Try-On — Eyes, Earrings &amp; Necklaces" loading="lazy"></div></div>
+        <div class="catbadge">Human AI</div>
+        <h2 class="detail-title">Virtual Try-On — Eyes, Earrings &amp; Necklaces</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>An augmented-reality beauty try-on that lets users preview eye colour, earrings, necklaces and lipstick naturally on their own photo.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Shoppers can&#x27;t easily see how accessories and beauty products will look on them before buying, leading to uncertainty and returns.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system places accessories and beauty effects onto a face photo naturally, respecting head position and lighting, so users see a realistic preview of how products look on them.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Virtual eye-colour, earrings, necklace and lipstick try-on</li><li>Natural blending with head pose and lighting</li><li>Realistic on-photo preview</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Beauty and jewellery e-commerce</li><li>Virtual fitting rooms</li><li>Interactive retail experiences</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Gives shoppers a realistic preview of accessories and beauty products, boosting confidence and reducing returns.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Live video try-on</li><li>Wider product catalogue</li><li>Personalized recommendations</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Human AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
+      <template id="detail-25">
+        <div class="detail-hero"><div class="thumb" data-src="assets/proj_25_1784581553.mp4" data-video data-title="Conversational AI with 3D Talking Avatar"><video src="assets/proj_25_1784581553.mp4" muted loop playsinline autoplay preload="metadata"></video></div></div>
+        <div class="catbadge">Human AI</div>
+        <h2 class="detail-title">Conversational AI with 3D Talking Avatar</h2>
+        <div class="detail-grid">
+          <div class="detail-main"><div class="ds"><div class="ds-h">Overview</div><p>An interactive voice assistant with a lifelike 3D avatar that listens to spoken questions, replies in natural language, and animates a talking face in sync with the conversation.</p></div><div class="ds"><div class="ds-h">Problem</div><p>Text chatbots feel impersonal, and voice assistants without a face lack presence and engagement, limiting their use in customer-facing and interactive settings.</p></div><div class="ds"><div class="ds-h">Solution</div><p>The system understands spoken questions, generates natural conversational replies, and drives a realistic 3D avatar whose face and expressions move in time with the speech — creating a natural, engaging interaction.</p></div><div class="ds"><div class="ds-h">Key Features</div><ul><li>Speech understanding and natural replies</li><li>Lifelike 3D avatar with synced facial animation</li><li>Real-time spoken conversation</li><li>Engaging, human-like presence</li></ul></div><div class="ds"><div class="ds-h">Applications</div><ul><li>Virtual assistants and receptionists</li><li>Customer service and kiosks</li><li>Education and training</li><li>Interactive brand experiences</li></ul></div><div class="ds"><div class="ds-h">Results</div><p>Combines voice interaction with a believable animated presenter to deliver a far more engaging and human experience than text or voice-only assistants.</p></div><div class="ds"><div class="ds-h">Future Improvements</div><ul><li>Multilingual conversations</li><li>Emotion-aware expressions</li><li>Customizable avatar appearances</li></ul></div></div>
+          <aside class="detail-info"><div class="ds-h">Project Information</div><div class="pi-row"><span>Category</span><b>Human AI</b></div><div class="pi-row"><span>Status</span><b>Completed</b></div></aside>
+        </div>
+      </template>
   <script>
     (function() {
       // AI neural-network background animation
@@ -462,6 +717,32 @@
           });
         });
       });
+
+      // project detail modal
+      var dm = document.getElementById('detailmodal');
+      var dmc = document.getElementById('dm-content');
+      function openDetail(id) {
+        var tpl = document.getElementById('detail-' + id);
+        if (!tpl) return;
+        dmc.innerHTML = '';
+        dmc.appendChild(tpl.content.cloneNode(true));
+        dm.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        dm.scrollTop = 0;
+      }
+      function closeDetail() {
+        dm.classList.remove('open'); dmc.innerHTML = '';
+        document.body.style.overflow = '';
+      }
+      document.querySelectorAll('.project[data-detail]').forEach(function(card) {
+        card.addEventListener('click', function(e) {
+          if (e.target.closest('.thumb[data-zoom]')) return; // let image zoom work
+          openDetail(card.getAttribute('data-detail'));
+        });
+      });
+      document.getElementById('dm-close').addEventListener('click', closeDetail);
+      dm.addEventListener('click', function(e) { if (e.target === dm) closeDetail(); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDetail(); });
     })();
   </script>
 </body>
